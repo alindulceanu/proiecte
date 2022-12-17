@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.messagebox as mb
 import time
+from datetime import datetime
 
 player = 1
 win_game = False
@@ -77,7 +78,7 @@ def reset():
     win_game = False
     matrix()
     g = True
-    start_time = time.time()
+    
 
 root = tk.Tk()
 root.title("Tik Tac Toe")
@@ -103,14 +104,4 @@ reset = tk.Button(
 reset.grid(row = 3, column = 0)
 winner = tk.Label(text = "win")
 winner.grid(row = 3, column = 1)
-
-start_time = time.time()
-
-while g == True:
-    end_time = time.time()
-    timer = end_time - start_time
-
-timeLabel = tk.Label(text = timer)
-timeLabel.grid(row = 3, column = 2)
-
 root.mainloop()
