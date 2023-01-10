@@ -96,25 +96,7 @@ def win():
         scor.configure(fg = "blue")
     else:
         scor.configure(fg = "black")
-    
-    
 
-def reset():
-    global poz
-    global player
-    global win_game
-    
-    global start_time
-    poz = [
-     [0 ,0 ,0],
-     [0 ,0 ,0],
-     [0 ,0 ,0]]
-    
-    winner.configure(text = "win")
-    player = 1
-    win_game = False
-    matrix()
-    
     
 def joc():
     global matrix
