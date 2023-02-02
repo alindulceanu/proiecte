@@ -4,3 +4,5 @@ enigmaFrontend.py
 test.py
 xo.py
 /django
+/MMOGAME/__pycache__/
+/MMOGAME/.vscode/
