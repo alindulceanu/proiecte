@@ -2,16 +2,29 @@ from abilities import *
 from map import *
 from races import *
 
+def fight(player1, player2):
+    player1.calcAbilities(player2)
+    player2.calcAbilities(player1)
+    player1.attack(player2)
+    player2.attack(player1)
+    player1.takeDmg()
+    player2.takeDmg()
 
+    if player2.isDead == True:
+        player1.xp(player2.lvl)
 
-players_pos = map(6, 6)
-tiles = map(6, 6)
+    if player1.isDead == True:
+        player2.xp(player1.lvl)
+
 p1 = wizard(2, 2)
-p2 = knight(2, 2)
+p2 = pyromancer(2, 1)
+p3 = knight(2, 1)
+p4 = rogue(2, 5)
 
-r = 3
+r = 2
 
-players = (p1, p2)
+players = (p1, p2, p3, p4)
+
 
 while r != 0:
     
@@ -19,24 +32,23 @@ while r != 0:
         if players[p].DoTCount != 0:
             players[p].dotted()
 
-    p1.move("_")
-    p2.move("_")
+
+    p2.move("R")
+
+
+    for i in range(len(players)):
+        for j in range(i + 1, len(players)):
+            if players[i].playerPosition() == players[j].playerPosition():
+                if players[i].isDead == False and players[j].isDead == False:
+                    fight(players[i], players[j])
         
-    if p1.playerPosition() == p2.playerPosition():
-        
-        
-        p2.calcAbilities(p1)
-        p1.calcAbilities(p2)
-        p1.attack(p2)
-        p2.attack(p1)
-        p1.takeDmg()
-        p2.takeDmg()
 
     r -= 1
-    
+
 
 p1.showStats()
 p2.showStats()
+p3.showStats()
+p4.showStats()
 
-
-players_pos.i
+print(p2.isDead)
