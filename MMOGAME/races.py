@@ -1,5 +1,6 @@
-from map import players_pos
+from utils import *
 from abilities import *
+from map import players_pos, tiles 
 
 class race:
     def __init__(self,  X_start, Y_start):
@@ -11,7 +12,7 @@ class race:
         self.lvl = 0
         self.XP_levelUp = 250 + self.lvl * 50
         self.XP = 0
-        players_pos.set_tile(self.char , X_start, Y_start)
+        players_pos.set_tile(self.char , self.X_start, self.Y_start)
         self.damageTaken = 0
         self.currentHP = self.MAX_HP
         self.isDead = False
@@ -20,46 +21,46 @@ class race:
         self.stunCount = 0
         self.DoTDamage = 0
         
-    def xp(self, XP):
-        self.XP += XP
+    def xp(self, lvlLoser):
+        self.XP += max(0, 200 - (self.lvl - lvlLoser) * 40)
         while self.XP > self.XP_levelUp: 
-            self.lvl += 1
-            self.XP -= self.XP_levelUp
-            self.XP_levelUp = 250 + self.lvl * 50
             self.levelUp()
 
     def levelUp(self):
         self.MAX_HP += self.HP_GROWTH
         self.currentHP = self.MAX_HP
+        self.lvl += 1
+        self.XP -= self.XP_levelUp
+        self.XP_levelUp = 250 + self.lvl * 50
 
     def showStats(self):
-        print(self.lvl, "\n", str(self.currentHP) + "/" + str(self.MAX_HP))
+        print("lvl", self.lvl, "\n", str(self.currentHP) + "/" + str(self.MAX_HP), "\n", str(self.XP) + "xp", "\n")
 
     def move(self, dir):
 
+        if self.isDead == False:
+            if dir == "D":
+                self.X_now += 1
+                players_pos.set_tile(self.char, self.X_now, self.Y_now)
+                players_pos.set_tile(0, self.X_now - 1, self.Y_now)
 
-        if dir == "D":
-            self.X_now += 1
-            players_pos.set_tile(self.char, self.X_now, self.Y_now)
-            players_pos.set_tile(0, self.X_now - 1, self.Y_now)
+            elif dir == "U":
+                self.X_now -= 1
+                players_pos.set_tile(self.char, self.X_now, self.Y_now)
+                players_pos.set_tile(0, self.X_now + 1, self.Y_now)
 
-        elif dir == "U":
-            self.X_now -= 1
-            players_pos.set_tile(self.char, self.X_now, self.Y_now)
-            players_pos.set_tile(0, self.X_now + 1, self.Y_now)
+            elif dir == "R":
+                self.Y_now += 1
+                players_pos.set_tile(self.char, self.X_now, self.Y_now)
+                players_pos.set_tile(0, self.X_now, self.Y_now - 1)
 
-        elif dir == "R":
-            self.Y_now += 1
-            players_pos.set_tile(self.char, self.X_now, self.Y_now)
-            players_pos.set_tile(0, self.X_now, self.Y_now - 1)
+            elif dir == "L":
+                self.Y_now -= 1
+                players_pos.set_tile(self.char, self.X_now, self.Y_now)
+                players_pos.set_tile(0, self.X_now, self.Y_now + 1)
 
-        elif dir == "L":
-            self.Y_now -= 1
-            players_pos.set_tile(self.char, self.X_now, self.Y_now)
-            players_pos.set_tile(0, self.X_now, self.Y_now + 1)
-
-        elif dir == "_":
-            players_pos.set_tile(self.char, self.X_now, self.Y_now)
+            elif dir == "_":
+                players_pos.set_tile(self.char, self.X_now, self.Y_now)
 
     def dmgCount(self, damage):
         self.damageTaken += damage  
@@ -77,6 +78,8 @@ class race:
     def death(self):
         players_pos.set_tile(0, self.X_now, self.Y_now)
         self.isDead = True
+        self.currentHP = 0
+        self.DoTCount = 0
 
     def playerPosition(self):
         return (self.X_now, self.Y_now)
@@ -151,3 +154,5 @@ class rogue(race):
         self.a1 = "backstab"
         self.a2 = "paralysis"
         self.char = "R"
+
+
