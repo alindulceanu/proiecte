@@ -1,232 +1,241 @@
+class abillity:
+    def __init__(self, lvl, enemy):
+        self.modDMG = 0
 
 
-class fireblast():
+
+
+class fireblast(abillity):
     
     def __init__(self, lvl, enemy):
+
+        super().__init__(lvl, enemy)
         self.lvl = lvl
         self.enemy = enemy
-
-        self.DMG = 350
+        self.rawDMG = 350
         self.DMG_GROWTH = 50
 
-        self.DMG += self.DMG_GROWTH * self.lvl
+        self.rawDMG += self.DMG_GROWTH * self.lvl
 
         if self.enemy.char == "R":
-            self.DMG *= 0.8
+            self.modDMG = self.rawDMG * 0.8
 
         elif self.enemy.char == "K":
-            self.DMG *= 1.2
+            self.modDMG = self.rawDMG * 1.2
 
         elif self.enemy.char == "P":
-            self.DMG *= 0.9
+            self.modDMG = self.rawDMG * 0.9
 
         elif self.enemy.char == "W":
-            self.factor = 1.05
-            self.percent *= self.factor
+            self.modDMG = self.rawDMG * 1.05
 
-        self.DMG = round(self.DMG)
+        self.modDMG = round(self.modDMG)
         
-class backstab():
+class backstab(abillity):
 
     def __init__(self, lvl, enemy):
+        super().__init__(lvl, enemy)
         self.lvl = lvl
         self.enemy = enemy
-        self.DMG = 200
+        self.rawDMG = 200
         self.DMG_GROWTH = 20
 
-        self.DMG += self.DMG_GROWTH * self.lvl
+        self.rawDMG += self.DMG_GROWTH * self.lvl
 
         if self.enemy.char == "R":
-            self.DMG *= 1.2
+            self.modDMG = self.rawDMG * 1.2
 
         elif self.enemy.char == "K":
-            self.DMG *= 0.9
+            self.modDMG = self.rawDMG * 0.9
 
         elif self.enemy.char == "P":
-            self.DMG *= 1.25
+            self.modDMG = self.rawDMG * 1.25
 
         elif self.enemy.char == "W":
-            self.factor = 1.25
-            self.percent *= self.factor
+            self.modDMG = self.rawDMG * 1.25
         
-        self.DMG = round(self.DMG)
+        self.modDMG = round(self.modDMG)
 
-class paralysis():
+class paralysis(abillity):
 
     def __init__(self, lvl, enemy):
+        super().__init__(lvl, enemy)
         self.lvl = lvl
         self.enemy = enemy
-        self.DMG = 40
+        self.rawDMG = 40
         self.DMG_GROWTH = 10
 
-        self.DMG += self.DMG_GROWTH * self.lvl
+        self.rawDMG += self.DMG_GROWTH * self.lvl
 
         if self.enemy.char == "R":
-            self.DMG *= 1.2
+            self.modDMG = self.rawDMG * 1.2
 
         elif self.enemy.char == "K":
-            self.DMG *= 0.9
+            self.modDMG = self.rawDMG * 0.9
 
         elif self.enemy.char == "P":
-            self.DMG *= 1.25
+            self.modDMG = self.rawDMG * 1.25
 
         elif self.enemy.char == "W":
-            self.factor = 1.25
-            self.percent *= self.factor
+            self.modDMG = self.rawDMG * 1.25
+            
         
-        self.DMG = round(self.DMG)
-        enemy.DoTDamage = self.DMG
+        self.modDMG = round(self.modDMG)
+        enemy.DoTDamage = self.modDMG
         enemy.DoTCount = 3
 
-class execute():
+class execute(abillity):
 
     def __init__(self, lvl, enemy):
-        
+
+        super().__init__(lvl, enemy)
         self.lvl = lvl
         self.enemy = enemy
-        self.DMG = 200
+        self.rawDMG = 200
         self.DMG_GROWTH = 30
         self.execGrowth = 0.20 + self.lvl / 100
-        self.factor = 0.8
-        self.DMG += self.DMG_GROWTH * self.lvl
+        self.rawDMG += self.DMG_GROWTH * self.lvl
 
         if self.execGrowth > 0.4:
             self.execGrowth = 0.4
 
         if self.enemy.char == "R":
-            self.DMG *= 1.15
+            self.modDMG = self.rawDMG * 1.15
 
         elif self.enemy.char == "P":
-            self.DMG *= 1.10
+            self.modDMG = self.rawDMG * 1.10
 
         elif self.enemy.char == "W":
             
-            self.percent *= self.factor
+            self.modDMG = self.rawDMG * 0.8
         
-        self.DMG = round(self.DMG)
+        self.modDMG = round(self.modDMG)
         
 
         if enemy.MAX_HP * self.execGrowth >= enemy.currentHP:
-            self.DMG = enemy.currentHP
+            self.modDMG = enemy.currentHP
 
-class ignite():
+class ignite(abillity):
 
     def __init__(self, lvl, enemy):
+
+        super().__init__(lvl, enemy)
         self.lvl = lvl
         self.enemy = enemy
 
-        self.DMG = 150
+        self.rawDMG = 150
         self.DMG_GROWTH = 20
         self.DoT = 50
         self.DoTGrowth = 30
 
-        self.DMG += self.DMG_GROWTH * self.lvl
+        self.rawDMG += self.DMG_GROWTH * self.lvl
         self.DoT += self.DoTGrowth * self.lvl
 
         if self.enemy.char == "R":
-            self.DMG *= 0.8
+            self.modDMG = self.rawDMG * 0.8
             self.DoT *= 0.8
 
         elif self.enemy.char == "K":
-            self.DMG *= 1.2
+            self.modDMG = self.rawDMG * 1.2
             self.DoT *= 1.2
 
         elif self.enemy.char == "P":
-            self.DMG *= 0.9
+            self.modDMG = self.rawDMG * 0.9
             self.DoT *= 0.9
 
         elif self.enemy.char == "W":
-            self.factor = 1.05
-            self.percent *= self.factor
-            self.DoT *= self.factor
+            self.modDMG = self.rawDMG * 1.05
+            self.DoT *= 1.05
         
-        self.DMG = round(self.DMG)
+        self.modDMG = round(self.modDMG)
         self.DoT = round(self.DoT)
 
         enemy.DoTDamage = self.DoT
         enemy.DoTCount = 2
 
-class slam():
+class slam(abillity):
     
     def __init__(self, lvl, enemy):
+        super().__init__(lvl, enemy)
         self.lvl = lvl
         self.enemy = enemy
 
-        self.DMG = 100
+        self.rawDMG = 100
         self.DMG_GROWTH = 40
-        self.factor = 1.05
 
-        self.DMG += self.DMG_GROWTH * self.lvl
+        self.rawDMG += self.DMG_GROWTH * self.lvl
 
         if self.enemy.char == "R":
-            self.DMG *= 0.8
+            self.modDMG = self.rawDMG * 0.8
 
         elif self.enemy.char == "K":
-            self.DMG *= 1.2
+            self.modDMG = self.rawDMG * 1.2
 
         elif self.enemy.char == "P":
-            self.DMG *= 0.9
+            self.modDMG = self.rawDMG * 0.9
 
         elif self.enemy.char == "W":
             
-            self.percent *= self.factor
+            self.modDMG = self.rawDMG * 1.05
 
-        self.DMG = round(self.DMG)
+        self.modDMG = round(self.modDMG)
 
-class drain():
+class drain(abillity):
     
     def __init__(self, lvl, enemy):
+        super().__init__(lvl, enemy)
         self.lvl = lvl
         self.enemy = enemy
 
-        self.percent = 0.2
-        self.percentGrowth = 0.05
+        self.rawDMG = 0.2
+        self.DMGGrowth = 0.05
 
-        self.percent += self.percentGrowth * self.lvl
+        self.rawDMG += self.DMGGrowth * self.lvl
 
         if self.enemy.char == "R":
-            self.percent *= 0.8
+            self.modDMG = self.rawDMG * 0.8
 
         elif self.enemy.char == "K":
-            self.percent *= 1.2
+            self.modDMG = self.rawDMG * 1.2
 
         elif self.enemy.char == "P":
-            self.percent *= 0.9
+            self.modDMG = self.rawDMG * 0.9
 
         elif self.enemy.char == "W":
-            self.factor = 1.05
-            self.percent *= self.factor
+            self.modDMG = self.rawDMG * 1.05
 
 
-        self.DMG = self.percent * min(0.3 * enemy.MAX_HP, enemy.currentHP)
-        self.DMG = round(self.DMG)
+        self.modDMG = self.modDMG * min(0.3 * enemy.MAX_HP, enemy.currentHP)
+        self.modDMG = round(self.modDMG)
 
-class deflect():
+class deflect(abillity):
     
     def __init__(self, lvl, enemy):
+
+        super().__init__(lvl, enemy)
         self.lvl = lvl
         self.enemy = enemy
 
-        self.percent = 0.35
-        self.percentGrowth = 0.02
+        self.rawDMG = 0.35
+        self.DMGGrowth = 0.02
 
-        self.percent += self.percentGrowth * self.lvl
+        self.rawDMG += self.DMGGrowth * self.lvl
 
-        if self.percent > 0.7:
-            self.percent = 0.7
-
-        self.DMG = (enemy.A1.DMG / enemy.A1.factor + enemy.A2.DMG / enemy.A2.factor) * self.percent
-
+        if self.rawDMG > 0.7:
+            self.rawDMG = 0.7
+        
+        self.rawDMG = (enemy.A1.rawDMG + enemy.A2.rawDMG) * self.rawDMG
+        
         if self.enemy.char == "R":
-            self.DMG *= 1.2
+            self.modDMG = self.rawDMG * 1.2
 
         elif self.enemy.char == "K":
-            self.DMG *= 1.4
+            self.modDMG = self.rawDMG * 1.4
 
         elif self.enemy.char == "P":
-            self.DMG *= 1.3
+            self.modDMG = self.rawDMG * 1.3
 
         elif self.enemy.char == "W":
-            self.DMG *= 0
+            self.modDMG = self.rawDMG * 0
 
-        self.DMG = round(self.DMG)
+        self.modDMG = round(self.modDMG)

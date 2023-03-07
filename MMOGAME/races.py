@@ -1,6 +1,5 @@
-from utils import *
 from abilities import *
-from map import players_pos, tiles 
+from map import players_pos
 
 class race:
     def __init__(self,  X_start, Y_start):
@@ -85,8 +84,8 @@ class race:
         return (self.X_now, self.Y_now)
 
     def attack(self, target):
-        target.dmgCount(self.A1.DMG)
-        target.dmgCount(self.A2.DMG)
+        target.dmgCount(self.A1.modDMG)
+        target.dmgCount(self.A2.modDMG)
 
     def calcAbilities(self, enemy):
         if self.a1 == "fireblast":
@@ -117,8 +116,6 @@ class pyromancer(race):
     char = "P"
     MAX_HP = 500
     HP_GROWTH = 50
-    
-
     def __init__(self, X_start, Y_start):
         super().__init__(X_start, Y_start)
         self.a1 = "fireblast"
@@ -143,7 +140,7 @@ class wizard(race):
         super().__init__(X_start, Y_start)
         self.a1 = "drain"
         self.a2 =  "deflect"
-        self.char = "w"
+        self.char = "W"
         
 class rogue(race):
     char = "R"

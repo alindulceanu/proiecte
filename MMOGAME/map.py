@@ -13,6 +13,7 @@ class map:
 
     def playerPosition(self, player):
         return (player.X_now, player.Y_now)
+    
 
 players_pos = map(6, 6)
 tiles = map(6, 6)

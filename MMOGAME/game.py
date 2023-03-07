@@ -16,12 +16,12 @@ def fight(player1, player2):
     if player1.isDead == True:
         player2.xp(player1.lvl)
 
+p2 = pyromancer(2, 4)
 p1 = wizard(2, 2)
-p2 = pyromancer(2, 1)
-p3 = knight(2, 1)
+p3 = knight(1, 1)
 p4 = rogue(2, 5)
 
-r = 2
+r = 1
 
 players = (p1, p2, p3, p4)
 
@@ -31,9 +31,6 @@ while r != 0:
     for p in range(len(players)):
         if players[p].DoTCount != 0:
             players[p].dotted()
-
-
-    p2.move("R")
 
 
     for i in range(len(players)):
@@ -51,4 +48,6 @@ p2.showStats()
 p3.showStats()
 p4.showStats()
 
-print(p2.isDead)
+print(p1.isDead)
+
+tiles.print_map()
