@@ -16,7 +16,15 @@ def fight(player1, player2):
     if player1.isDead == True:
         player2.xp(player1.lvl)
 
-p2 = pyromancer(2, 4)
+def checkWiz(playerList):
+    for i in range(len(playerList)):
+        if playerList[i].char == "W":
+            for k in range(len(playerList)):
+                if k != i:
+                    playerList[k].calcAbilities(playerList[i])
+
+
+p2 = pyromancer(2, 2)
 p1 = wizard(2, 2)
 p3 = knight(1, 1)
 p4 = rogue(2, 5)
@@ -26,11 +34,16 @@ r = 1
 players = (p1, p2, p3, p4)
 
 
+
+
 while r != 0:
     
     for p in range(len(players)):
         if players[p].DoTCount != 0:
             players[p].dotted()
+
+
+    checkWiz(players)
 
 
     for i in range(len(players)):
@@ -49,5 +62,5 @@ p3.showStats()
 p4.showStats()
 
 print(p1.isDead)
-
+tiles.generate()
 tiles.print_map()
