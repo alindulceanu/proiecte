@@ -23,27 +23,37 @@ def checkWiz(playerList):
                 if k != i:
                     playerList[k].calcAbilities(playerList[i])
 
+def checkDebuff(playerList):
+    for p in range(len(playerList)):
+        playerList[p].stunCount -= 1
 
-p2 = pyromancer(2, 2)
+        if playerList[p].DoTCount != 0:
+            playerList[p].dotted()
+
+        if playerList[p].stunCount == 0:
+            playerList[p].isStun = False
+
+
+            
+
+tiles.generate()
+
+p2 = pyromancer(2, 0)
 p1 = wizard(2, 2)
-p3 = knight(1, 1)
-p4 = rogue(2, 5)
+p3 = knight(3, 0)
+p4 = rogue(3, 0)
 
 r = 1
 
-players = (p1, p2, p3, p4)
-
-
-
+players = [p1, p2, p3, p4]
 
 while r != 0:
     
-    for p in range(len(players)):
-        if players[p].DoTCount != 0:
-            players[p].dotted()
-
+    
+    checkDebuff(players)
 
     checkWiz(players)
+
 
 
     for i in range(len(players)):
@@ -61,6 +71,6 @@ p2.showStats()
 p3.showStats()
 p4.showStats()
 
-print(p1.isDead)
-tiles.generate()
-tiles.print_map()
+
+
+

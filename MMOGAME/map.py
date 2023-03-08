@@ -14,6 +14,8 @@ class map:
     def playerPosition(self, player):
         return (player.X_now, player.Y_now)
     
+    
+    
     def generate(self):
         for i in range(self.i):
             for j in range(self.j):
@@ -22,7 +24,7 @@ class map:
                 if i % 2 == 0 and j % 2 == 1:
                     self.set_tile("D", i, j)
                 if i % 2 == 1 and j % 2 == 0:
-                    self.set_tile("F", i, j)
+                    self.set_tile("W", i, j)
                 if i % 2 == 1 and j % 2 == 1:
                     self.set_tile("L", i, j)    
 

@@ -83,6 +83,12 @@ class paralysis(abillity):
         self.modDMG = round(self.modDMG)
         enemy.DoTDamage = self.modDMG
         enemy.DoTCount = 3
+        enemy.isStun = True
+        if enemy.getTileChar() == "W":
+            enemy.stunCount = 6
+        else:
+            enemy.stunCount = 3
+        
 
 class execute(abillity):
 
@@ -179,6 +185,9 @@ class slam(abillity):
             self.modDMG = self.rawDMG * 1.05
 
         self.modDMG = round(self.modDMG)
+
+        enemy.isStun = True
+        enemy.stunCount = 1
 
 class drain(abillity):
     
