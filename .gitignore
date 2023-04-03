@@ -7,3 +7,7 @@ xo.py
 /MMOGAME/__pycache__/
 /MMOGAME/.vscode/
 /ML
+/chess/.vscode
+/chess/__pycache__
+/chess/troll.py
+/numpy_test
